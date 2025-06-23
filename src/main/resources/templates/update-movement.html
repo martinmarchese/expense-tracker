@@ -1,108 +1,30 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"> <!-- CRITICAL FIX: Ensure this line is present and correct -->
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Update User</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
-</head>
+<head th:replace="~{fragments/header :: page_head('Update Movement')}"></head>
 
 <body>
-<div class="container my-5">
-    <h3> Update Movement</h3>
+<div th:replace="~{fragments/header :: navbar}"></div>
+
+<div class="container my-4">
     <div class="card">
         <div class="card-body">
-            <div class="col-md-8">
-                <form action="#" th:action="@{/movement/update/{id}(id=${movement.id})}" th:object="${movement}" method="post">
-                    <div class="form-group">
-                        <div class="mt-2">
-                            <label>Type</label>
-                            <div class="form-check mb-2">
-                                <input type="radio" id="type" th:field="*{type}" value="income"/>
-                                <label for="type">Ingreso</label>
-                            </div>
-                            <div class="form-check mb-2">
-                                <input type="radio" id="type" th:field="*{type}" value="expense"/>
-                                <label for="type">Egreso</label>
-                            </div>
-                            <div class="form-check mb-2">
-                                <input type="radio" id="type" th:field="*{type}" value="prevMonthBalance"/>
-                                <label for="type">Salgo Mes Anterior</label>
-                            </div>
-                            <div class="form-check mb-2">
-                                <input type="radio" id="type" th:field="*{type}" value="adjustment"/>
-                                <label for="type">Ajuste</label>
-                            </div>
-                            <div class="form-check mb-2">
-                                <input type="radio" id="type" th:field="*{type}" value="reimbursement"/>
-                                <label for="type">Devolución</label>
-                            </div>
-                            <span th:if="${#fields.hasErrors('type')}" th:errors="*{type}" class="text-danger"></span>
-                        </div>
+            <h3 class="card-title">Update Movement</h3>
+            <hr>
+            <form action="#" th:action="@{/movement/update/{id}(id=${movement.id})}" th:object="${movement}" method="post">
+                <div th:replace="~{fragments/_form :: form_fields}"></div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-12">
+                        <button type="submit" class="btn btn-primary">Update Movement</button>
+                        <a th:href="@{/movement}" class="btn btn-secondary">Cancel</a>
                     </div>
-                    <div class="form-group">
-                        <label>Category</label>
-                        <select th:field="*{category}" name="category" class="form-control">
-                            <option value="Almuerzos" >Almuerzos</option>
-                            <option value="Servicios e Impuestos" >Servicios e Impuestos</option>
-                            <option value="Expensas" >Expensas</option>
-                            <option value="Super" >Super</option>
-                            <option value="Tajetas" >Tajetas</option>
-                            <option value="Delivery" >Delivery</option>
-                            <option value="Auto" >Auto</option>
-                            <option value="Salidas" >Salidas</option>
-                            <option value="Otros" >Otros</option>
-                            <option value="Regalo" >Regalo</option>
-                            <option value="Ajuste" >Ajuste</option>
-                            <option value="Mamá" >Mamá</option>
-                            <option value="Medicación" >Medicación</option>
-                            <option value="Lujos" >Lujos</option>
-                            <option value="Inversión" >Inversión</option>
-                            <option value="Devolución" >Devolución</option>
-                            <option value="Psicócogo" >Psicócogo</option>
-                            <option value="Donación" >Donación</option>
-                            <option value="Kinesio" >Kinesio</option>
-                            <option value="Mascotas" >Mascotas</option>
-                            <option value="Streaming" >Streaming</option>
-                            <option value="Vacaciones" >Vacaciones</option>
-                            <option value="Farmacia" >Farmacia</option>
-                            <option value="Mamá (yo)" >Mamá (yo)</option>
-                            <option value="SUBE" >SUBE</option>
-                            <option value="Millas Aéreas" >Millas Aéreas</option>
-                            <option value="Caja de  Seguridad" >Caja de  Seguridad</option>
-                            <option value="Club" >Club</option>
-                            <option value="Préstamo" >Préstamo</option>
-                            <option value="Saldo Mes Anterior" >Saldo Mes Anterior</option>
-                            <option value="Guitarra" >Guitarra</option>
-                            <option value="ROI" >ROI</option>
-                            <option value="Empleada Doméstica" >Empleada Doméstica</option>
-                            <option value="Seguro de Vida" >Seguro de Vida</option>
-                        </select>
-                        <span th:if="${#fields.hasErrors('category')}" th:errors="*{category}" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label>Amount</label>
-                        <input type="number" name="amount" th:field="*{amount}" class="form-control"/>
-                    </div>
-                    <div class="form-group">
-                        <label>is CC?</label>
-                        <input type="checkbox" name="isCC" value="true" />
-                    </div>
-                    <div class="form-group">
-                        <label for="comments">Comments</label>
-                        <textarea type="textarea" id="comments" name="comments"></textarea>
-                    </div>
-                    <div class="col-md-6">
-                        <input type="submit" class="btn btn-primary" value="Update Movement">
-                    </div>
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>
-</body>
 
+<div th:replace="~{fragments/header :: footer}"></div>
+</body>
 </html>

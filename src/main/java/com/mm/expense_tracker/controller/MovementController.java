@@ -20,7 +20,7 @@ public class MovementController {
     @Autowired
     MovementRepository movementRepository;
 
-    @GetMapping("/")
+    @GetMapping("")
     public String showMovementList(Model model) {
         model.addAttribute("movements", movementRepository.findAll());
         return "/index";
@@ -38,7 +38,7 @@ public class MovementController {
         }
 
         movementRepository.save(movement);
-        return "redirect:/";
+        return "redirect:index";
     }
 
     @GetMapping("/edit/{id}")
@@ -59,7 +59,7 @@ public class MovementController {
         }
 
         movementRepository.save(movement);
-        return "redirect:/index";
+        return "redirect:index";
     }
 
     @GetMapping("/delete/{id}")
@@ -67,7 +67,7 @@ public class MovementController {
         Movement movement = movementRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid movement Id:" + id));
         movementRepository.delete(movement);
-        return "redirect:/index";
+        return "redirect:index";
     }
 
 }

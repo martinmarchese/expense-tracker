@@ -1,55 +1,68 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Users</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
-    <!-- <link rel="stylesheet" href="../css/shards.min.css"> -->
-</head>
+<head th:replace="~{fragments/header :: page_head('Movements')}"></head>
 
 <body>
-<div class="container my-2">
+<div th:replace="~{fragments/header :: navbar}"></div>
+
+<div class="container-fluid my-4">
+    <div class="row mb-3">
+        <div class="col-md-8">
+            <h1>Movements</h1>
+        </div>
+        <div class="col-md-4 text-md-right">
+            <!-- Use th:href for consistency -->
+            <a th:href="@{/movement/add}" class="btn btn-primary">
+                <i class="fas fa-plus"></i> Add Movement
+            </a>
+        </div>
+    </div>
+
     <div class="card">
         <div class="card-body">
-            <div th:switch="${movements}" class="container my-5">
-                <p class="my-5">
-                    <a href="/movement/add" class="btn btn-primary"><i
-                            class="fas fa-user-plus ml-2"> Add Movement</i></a>
-                </p>
-                <div class="col-md-10">
-                    <h2 th:case="null">No Movements yet!</h2>
-                    <div th:case="*">
-                        <table class="table table-striped table-responsive-md">
-                            <thead>
-                            <tr>
-                                <th>Type</th>
-                                <th>Category</th>
-                                <th>Amount</th>
-                                <th>Edit</th>
-                                <th>Delete</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr th:each="movement : ${movements}">
-                                <td th:text="${movement.type}"></td>
-                                <td th:text="${movement.category}"></td>
-                                <td th:text="${movement.amount}"></td>
-                                <td><a th:href="@{/movement/edit/{id}(id=${movement.id})}" class="btn btn-primary"><i class="fas fa-user-edit ml-2"></i></a></td>
-                                <td><a th:href="@{/movement/delete/{id}(id=${movement.id})}" class="btn btn-primary"><i class="fas fa-user-times ml-2"></i></a></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
+            <!-- A much cleaner way to handle the empty state -->
+            <div th:if="${#lists.isEmpty(movements)}">
+                <div class="alert alert-info" role="alert">
+                    No movements recorded yet. Click "Add Movement" to get started!
                 </div>
+            </div>
+
+            <div th:if="${not #lists.isEmpty(movements)}">
+                <table class="table table-striped table-hover table-responsive-md">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th>Type</th>
+                        <th>Category</th>
+                        <th>Amount</th>
+                        <th>isCC?</th>
+                        <th>Comments</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="movement : ${movements}">
+                        <td th:text="${movement.type}"></td>
+                        <td th:text="${movement.category}"></td>
+                        <td th:text="${movement.amount}"></td>
+                        <td th:text="${movement.isCC}"></td>
+                        <td th:text="${movement.comments}"></td>
+                        <td>
+                            <a th:href="@{/movement/edit/{id}(id=${movement.id})}" class="btn btn-sm btn-info" title="Edit">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a th:href="@{/movement/delete/{id}(id=${movement.id})}" class="btn btn-sm btn-danger" title="Delete">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
 </div>
-</body>
 
+<div th:replace="~{fragments/header :: footer}"></div>
+</body>
 </html>
