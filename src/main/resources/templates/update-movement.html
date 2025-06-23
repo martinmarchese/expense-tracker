@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"> <!-- CRITICAL FIX: Ensure this line is present and correct -->
 
-<head th:replace="~{fragments/header :: page_head('Update Movement')}"></head>
+<head th:replace="~{fragments/_header :: page_head('Update Movement')}"></head>
 
 <body>
-<div th:replace="~{fragments/header :: navbar}"></div>
+<div th:replace="~{fragments/_header :: navbar}"></div>
 
 <div class="container my-4">
     <div class="card">
@@ -25,6 +25,6 @@
     </div>
 </div>
 
-<div th:replace="~{fragments/header :: footer}"></div>
+<div th:replace="~{fragments/_header :: footer}"></div>
 </body>
 </html>

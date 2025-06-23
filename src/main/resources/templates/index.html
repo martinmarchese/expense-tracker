@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="~{fragments/header :: page_head('Movements')}"></head>
+<head th:replace="~{fragments/_header :: page_head('Movements')}"></head>
 
 <body>
-<div th:replace="~{fragments/header :: navbar}"></div>
+<div th:replace="~{fragments/_header :: navbar}"></div>
 
 <div class="container-fluid my-4">
     <div class="row mb-3">
@@ -64,6 +64,6 @@
     </div>
 </div>
 
-<div th:replace="~{fragments/header :: footer}"></div>
+<div th:replace="~{fragments/_header :: footer}"></div>
 </body>
 </html>
