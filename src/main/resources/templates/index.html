@@ -46,7 +46,10 @@
                         <td th:text="${#dates.format(movement.date, 'dd-MMM-yyyy')}"></td>                        <td th:text="${movement.type}"></td>
                         <td th:text="${movement.category}"></td>
                         <td th:text="${movement.amount}"></td>
-                        <td th:text="${movement.isCC}"></td>
+                        <td>
+                            <span th:if="${movement.isCC}" class="badge badge-success">Yes</span>
+                            <span th:unless="${movement.isCC}" class="badge badge-secondary">No</span>
+                        </td>
                         <td th:text="${movement.comments}"></td>
                         <td>
                             <a th:href="@{/movement/edit/{id}(id=${movement.id})}" class="btn btn-sm btn-info" title="Edit">
